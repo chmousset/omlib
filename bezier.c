@@ -156,3 +156,21 @@ void mp_calc_vector_max_speed(struct bezier_t *curve, float max_speed, float max
 
 
 int mp_planifiate(struct bezier_t *path);
+int b_split(int axis, struct bezierx_t *out, struct bezier_t in)
+{
+	int i;
+	for (i=0; i<4; i++)
+	{
+		out->x[i] = in->x[1][axis];
+		out->cc[i] = in->cc[1][axis];
+	}
+}
+
+int b_split_all(struct bezierx_t *out, struct bezier_t in);
+{
+	int i;
+	for (i=0; i< MAX_AXIS; i++)
+		b_split(&out[i], in);
+}
+
+

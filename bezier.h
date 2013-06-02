@@ -143,6 +143,23 @@ float b_calc_vector_lenght(float *vec);
 float b_create_lookup_table(struct bezier_t *curve, tlookup_t *l);
 
 
+/**
+ * @brief split a struct bezier_t in a struct bezierx_t
+ * @param[in] axis axis number, 0 to (MAX_AXIS-1)
+ * @param[in] in multi-axis curve data structure
+ * @param[in] out single-axis curve data structure
+ */
+int b_split(int axis, struct bezierx_t *out, struct bezier_t in);
+
+
+/**
+ * @brief split a struct bezier_t in a multiple struct bezierx_t
+ * @param[in] in multi-axis curve data structure
+ * @param[in] out single-axis curve data structure array, MAX_AXIS elements
+ */
+int b_split_all(struct bezierx_t *out, struct bezier_t in);
+
+
 
 void mp_calc_vector_max_speed(struct bezier_t * curve, float max_speed, float max_acc);
 
