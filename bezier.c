@@ -109,50 +109,36 @@ float b_create_lookup_table(struct bezier_t *curve, tlookup_t *l)
 	int i;					// iterator integer
 	float acc_max;			// maximum acceleration
 	
-#if !defined(LOOKUP_OVERSAMPLING)
-	step = 1.0/T_LOOKUP_DEPTH;
-#else
 	step = 1.0/(T_LOOKUP_DEPTH * LOOKUP_OVERSAMPLING);
-#endif
 	
-	b_calc_vectors(tan_v, acc_v, curve, 0.0);	// calc the vectors at t=0
-	vec_l[0] = b_calc_vector_lenght(tan_v);		// and their lenght
-	vec_l[1] = b_calc_vector_lenght(acc_v);		// and their lenght
-	acc_max = abs(vec_l[1]);
-	lenght = step * vec_l[0];							// integrate lenght
-	printf("tangent=[%f,%f] lenght %f\r\n", tan_v[0], tan_v[1], lenght);
-	
-#if !defined(LOOKUP_OVERSAMPLING)
-	l->dat[0] = lenght;
-#endif
-	
-	for (i=1; i<LOOKUP_OVERSAMPLING*T_LOOKUP_DEPTH; i++)
+	for (i=0; i<LOOKUP_OVERSAMPLING*T_LOOKUP_DEPTH-1; i++)
 	{
+#if defined(LOOKUP_OVERSAMPLING)		
+		if((i % LOOKUP_OVERSAMPLING==0) && (i != 0))
+		{
+			l->dat[(i/LOOKUP_OVERSAMPLING) - 1][1] = lenght * step;
+			l->dat[(i/LOOKUP_OVERSAMPLING) - 1][0] = t;
+		}
+#else
+	l->dat[i] = lenght * step;
+#endif
 		t += step;
 		b_calc_vectors(tan_v, acc_v, curve, t);
 		vec_l[0] = b_calc_vector_lenght(tan_v);
 		vec_l[1] = b_calc_vector_lenght(acc_v);
 		acc_max = max(acc_max, abs(vec_l[1]));
 		lenght += vec_l[0];
-		printf("tangent=[%f,%f] lenght %f\r\n", tan_v[0], tan_v[1], lenght * step);
+		printf("t %f tangent=[%f,%f] lenght %f\r\n", t, tan_v[0], tan_v[1], lenght * step);
 		
-#if defined(LOOKUP_OVERSAMPLING)		
-		if(i % LOOKUP_OVERSAMPLING==0)
-		{
-			l->dat[i/LOOKUP_OVERSAMPLING][1] = lenght * step;
-			l->dat[i/LOOKUP_OVERSAMPLING][0] = t;
-		}
-#else
-	l->dat[i] = lenght * step;
-#endif
 	}
 	
 	// we process the last lookup value outside of the loop to execute the calculation at precisely t=1
-	b_calc_vectors(tan_v, acc_v, curve, 1.0);
+	b_calc_vectors(tan_v, acc_v, curve, 1.0 - step);
 	lenght += b_calc_vector_lenght(tan_v);
 	l->dat[T_LOOKUP_DEPTH-1][1] = lenght * step;
 	l->dat[T_LOOKUP_DEPTH-1][0] = 1.0;
-	return lenght;
+	printf("t 1.0 tangent=[%f,%f] lenght %f\r\n", tan_v[0], tan_v[1], lenght * step);
+	return lenght*step;
 }
 
 
