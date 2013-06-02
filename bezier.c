@@ -40,6 +40,7 @@ int b_divide(struct bezier_t *out_l, struct bezier_t *in)
 		out_l[0].x[0][i] = in->x[0][i];			// a0
 		out_l[1].x[3][i] = in->x[3][i];			// a3
 	}
+	return 2;
 }
 
 
