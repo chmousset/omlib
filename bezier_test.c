@@ -28,6 +28,8 @@ int main()
 	tlookup_t lookup;
 	float lenght;
 	
+	
+	// TEST1 : straight line lenght
 	b_calc_cparams(&line1);
 	lenght = b_create_lookup_table(&line1, &lookup);
 	
@@ -37,6 +39,7 @@ int main()
 		printf("t: %f  l: %f\r\n", lookup.dat[i][0], lookup.dat[i][1]);
 	
 	
+	// TEST2 : Quart circle approximation
 	b_calc_cparams(&curve1);
 	lenght = b_create_lookup_table(&curve1, &lookup);
 	
