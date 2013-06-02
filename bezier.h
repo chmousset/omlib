@@ -3,6 +3,9 @@
 #define BEZIER_H
 
 #define T_LOOKUP_DEPTH			5			//<! t-lenght lookup table
+
+#include "omconf.h"
+
 #define MAX_AXIS				2			//<! maximum number of axis a bezier can have
 
 /**
