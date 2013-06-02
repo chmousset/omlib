@@ -2,17 +2,33 @@
 #ifndef BEZIER_H
 #define BEZIER_H
 
-#define T_LOOKUP_DEPTH			5			//<! t-lenght lookup table
 
 #include "omconf.h"
 
-#define MAX_AXIS				2			//<! maximum number of axis a bezier can have
+/**
+ * @brief   t-lenght lookup table depth
+ * @details Depth of the lookup table that contains lenght of the bezier curve
+ */
+#if !defined(T_LOOKUP_DEPTH) || defined(__DOXYGEN__)
+#define T_LOOKUP_DEPTH			8
+#endif
 
 /**
- * supersampling of the curve's lenght. The lenght is integrated over LOOKUP_OVERSAMPLING*T_LOOKUP_DEPTH samples.
- * Undefine to disable supersampling.
+ * @brief   Max number of axis
+ * @details The bezier curves will have MAX_AXIS polynomes of degree 3
  */
-#define LOOKUP_OVERSAMPLING		10
+#if !defined(MAX_AXIS) || defined(__DOXYGEN__)
+#define MAX_AXIS				2			//<! maximum number of axis a bezier can have
+#endif
+
+/**
+ * @brief   supersampling of the curve's lenght
+ * @details The lenght is integrated over LOOKUP_OVERSAMPLING*T_LOOKUP_DEPTH samples.
+ * This increases the precision of the t-lenght table's values
+ */
+#if !defined(LOOKUP_OVERSAMPLING) || defined(__DOXYGEN__)
+#define LOOKUP_OVERSAMPLING		8
+#endif
 
 // defines for vectors
 #define VEC_TAN					0
