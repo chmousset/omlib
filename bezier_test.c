@@ -31,9 +31,18 @@ int main()
 	b_calc_cparams(&line1);
 	lenght = b_create_lookup_table(&line1, &lookup);
 	
-	printf("the lenght is %f and the lookup table is the following:\r\n", lenght);
-	int i;
-	for(i=1; i<T_LOOKUP_DEPTH; i++)
+	printf("The lenght of the line (0,0,1,1) is %f and the lookup table is the following:\r\n", lenght);
+	printf("Exact lenght is %f ; error is %f\%\r\n", sqrtf(2.0), (100 * (lenght-sqrtf(2.0)) / sqrtf(2.0) ) );
+	for(i=0; i<T_LOOKUP_DEPTH; i++)
+		printf("t: %f  l: %f\r\n", lookup.dat[i][0], lookup.dat[i][1]);
+	
+	
+	b_calc_cparams(&curve1);
+	lenght = b_create_lookup_table(&curve1, &lookup);
+	
+	printf("The lenght of the 1/4 circle (0,0,1,1) is %f and the lookup table is the following:\r\n", lenght);
+	printf("Exact lenght is %f; error is %f\%\r\n", PI / 2, (200 * (lenght - (PI/2))/PI ) );
+	for(i=0; i<T_LOOKUP_DEPTH; i++)
 		printf("t: %f  l: %f\r\n", lookup.dat[i][0], lookup.dat[i][1]);
 	
 	return 0;
