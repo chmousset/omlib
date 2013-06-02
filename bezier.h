@@ -15,6 +15,10 @@
 #define VEC_TAN					0
 #define VEC_ACC					1
 
+#if !defined(max)
+#define max(a,b) ( a > b ? a : b )
+#endif
+
 /**
  * single axis Bezier curve parameters
  */
