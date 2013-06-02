@@ -169,7 +169,7 @@ int b_split_all(struct bezierx_t *out, struct bezier_t *in)
 {
 	int i;
 	for (i=0; i< MAX_AXIS; i++)
-		b_split(&out[i], in);
+		b_split(i, &out[i], in);
 }
 
 
