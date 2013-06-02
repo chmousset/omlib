@@ -1,7 +1,12 @@
 
 
+#include <math.h>
 #include <stdio.h>
 #include "bezier.h"
+
+#if !defined(PI)
+#define PI (3.141592653589793)
+#endif
 
 //gcc bezier_test.c bezier.c -o bezier_test -I ./ -lm
 
