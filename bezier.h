@@ -39,7 +39,10 @@
 #endif
 
 /**
- * single axis Bezier curve parameters
+ * @brief   single axis Bezier curve parameters
+ * @details A multi-axis curve parameter structure is splitted into multiple 
+ * ::bezierx_t for dispatching.
+ * This gives one of the coordinate of a point of the curve.
  */
 struct bezierx_t {
 	float x[4];
@@ -49,7 +52,10 @@ struct bezierx_t {
 };
 
 /**
- * multi axis Bezier curve parameters
+ * @brief   multi axis Bezier curve parameters
+ * @details x[][] contains the polynimial coefficients; and cc[][] contains the 
+ * coefficients in another form, more practical for efficient calculation of the
+ * coordinates of the points of the curve.
  */
 struct bezier_t {
 	float x[4][MAX_AXIS];
@@ -59,9 +65,14 @@ struct bezier_t {
 };
 
 
+/**
+ * @brief   t-lenght lookup table
+ * @details dat[i][1] contains the lenght of the curve at (t = dat[i][0])
+ */
 typedef struct tlookup_t{
-	float dat[T_LOOKUP_DEPTH][2];		// table containing the actual data
+	float dat[T_LOOKUP_DEPTH][2];
 } tlookup_t;
+
 
 typedef float vector_t[MAX_AXIS];
 typedef float point_t[MAX_AXIS];
@@ -70,52 +81,61 @@ typedef float point_t[MAX_AXIS];
 
 
 
+/**
+ * @brief   Calculate ab vector
+ * @details @param[in] a is the first point
+ * @param[in] b is the final point
+ * @param[out] c is the output vector from a to b
+ */
 void vector_from_points(float *c, float *a, float *b);
 
 
 /**
- * compute the complexity criteria. It is simply the sum of dot-products.
- * This value is meant to determine if a curve must be subdivided or not
+ * @brief complexity of a bezier curve
+ * @details compute the complexity criteria. It is simply the sum of dot-products.
+ * This value is meant to determine if a curve must be subdivided or not.
+ * The higher the value, the more the curve has potentially sharp turns and 
+ * multiple cusps
  */
 float b_complexity(struct bezier_t *c);
 
 
 /**
- * Cut a bezier curve in two smaller pieces.
- * The resulting bezier curve feature simplified shape, much easier to process
+ * @brief Cut a bezier curve in two smaller pieces.
+ * @details The resulting bezier curve feature simplified shape, much easier to process
  * The initial curve is not modified
  * out_l[0] is followed by out_l[1], so out_l[0] is the starting curve
- * NOTE: c-params have to be calculated!
+ * NOTE: c-params have to be calculated prior to use this function!
  */
 int b_divide(struct bezier_t *out_l, struct bezier_t *in);
 
 
 /**
- * calculate the c-params that are used for the curve points calculation
+ * @brief calculate the c-params that are used for the curve points calculation
  */
 void b_calc_cparams(struct bezier_t *c);
 
 
 /**
- * calculate a point's position at t on bezier curve
+ * @brief calculate a point's position at t on bezier curve
  */
 void b_calc_point(float *coord, struct bezier_t *c, float t);
 
 
 /**
- * calculate a point's position at t on bezier curve (single axis version)
+ * @brief calculate a point's position at t on bezier curve (single axis version)
  */
 void b_calc_point_single(float *coord, struct bezierx_t *c, float t);
 
 
 /**
- * calculate the tangent vector to the curve at t, and the acceleration vector
+ * @brief calculate the tangent vector to the curve at t, and the acceleration vector
  */
 void b_calc_vectors(float *tan, float *acc, struct bezier_t *c, float t);
 
 
 /**
- * calculate a vector's lenght
+ * @brief calculate a vector's lenght
  */
 float b_calc_vector_lenght(float *vec);
 
