@@ -149,7 +149,7 @@ float b_create_lookup_table(struct bezier_t *curve, tlookup_t *l);
  * @param[in] in multi-axis curve data structure
  * @param[in] out single-axis curve data structure
  */
-int b_split(int axis, struct bezierx_t *out, struct bezier_t in);
+int b_split(int axis, struct bezierx_t *out, struct bezier_t *in);
 
 
 /**
@@ -157,7 +157,7 @@ int b_split(int axis, struct bezierx_t *out, struct bezier_t in);
  * @param[in] in multi-axis curve data structure
  * @param[in] out single-axis curve data structure array, MAX_AXIS elements
  */
-int b_split_all(struct bezierx_t *out, struct bezier_t in);
+int b_split_all(struct bezierx_t *out, struct bezier_t *in);
 
 
 

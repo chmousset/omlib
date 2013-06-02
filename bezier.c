@@ -155,7 +155,7 @@ void mp_calc_vector_max_speed(struct bezier_t *curve, float max_speed, float max
 }
 
 
-int b_split(int axis, struct bezierx_t *out, struct bezier_t in)
+int b_split(int axis, struct bezierx_t *out, struct bezier_t *in)
 {
 	int i;
 	for (i=0; i<4; i++)
@@ -165,7 +165,7 @@ int b_split(int axis, struct bezierx_t *out, struct bezier_t in)
 	}
 }
 
-int b_split_all(struct bezierx_t *out, struct bezier_t in);
+int b_split_all(struct bezierx_t *out, struct bezier_t *in)
 {
 	int i;
 	for (i=0; i< MAX_AXIS; i++)
