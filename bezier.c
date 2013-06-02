@@ -159,7 +159,7 @@ void mp_calc_vector_max_speed(struct bezier_t *curve, float max_speed, float max
 {
 	curve->speed_max = max_speed;
 	
-	// if the speed is superior to the maximum, then clip it to respect the maximum acceleration.
+	// if the acceleration is superior to the maximum, then clip the speed to respect the maximum acceleration.
 	if(curve->acc_max > max_acc)
 	{
 		curve->speed_max = curve->speed_max * max_acc / curve->acc_max; 
