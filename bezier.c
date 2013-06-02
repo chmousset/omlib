@@ -28,7 +28,7 @@ int b_divide(struct bezier_t *out_l, struct bezier_t *in)
 	int i;
 	float a12[MAX_AXIS];
 	
-	for(i=0; MAX_AXIS; i++)
+	for(i=0; i < MAX_AXIS; i++)
 	{
 		a12[i] = (in->x[1][i] + in->x[2][i]) / 2;			// a12 = av(a1,a2)
 		out_l[0].x[1][i] = (in->x[0][i] + in->x[1][i]) / 2;	// b1 = av(a0,a1)
