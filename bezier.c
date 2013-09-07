@@ -105,7 +105,6 @@ float b_create_lookup_table(struct bezier_t *curve, tlookup_t *l)
 	float increment=0.0;	// t increment
 	float step;				// t increment
 	float t=0;				// t value
-	float amax=0;			// maximum acceleration
 	float vec_l[2];			// t-speed and t-acceleration
 	int i;					// iterator integer
 	float acc_max;			// maximum acceleration
