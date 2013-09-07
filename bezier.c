@@ -1,6 +1,7 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "bezier.h"
 
 void vector_from_points(float *c, float *a, float *b)
