@@ -96,4 +96,53 @@ struct queue_t
 #endif
 };
 
-#endif
+
+void queue_init(struct queue_t *queue);
+#if (DYNAMIC_QUEUE_SIZE == TRUE) || defined(__DOXYGEN__)
+/** @ingroup planner
+* @brief push a job to the top of the stack
+* @details no copy version. the pointer to the job is directly saved in the queue. available in dynamic queue only.
+* @param[in] *job job you want to push
+* @param[in] *queue queue in which the job is added
+* @return number of job in the list
+*/
+int queue_push_nocopy(struct job_t *job, struct queue_t *queue);
+
+
+/** @ingroup planner
+ * @brief push a job to the top of the stack
+ * @details copies job and data in newly allocated memory
+ * @param[in] *job job you want to push
+ * @param[in] *queue queue in which the job is added
+ * @return number of job in the list
+ */
+int queue_push(struct job_t *job, struct queue_t *queue);
+
+
+/** @ingroup planner
+ * @brief pop a job from the bottom of the stack
+ * @details no copy version. passes directly the pointer to the job in the queue
+ * @param[in] *queue queue in which the job is taken
+ * @return pointer to the job. NULL if the queue is empty
+ */
+struct job_t * queue_pop_nocopy(struct queue_t *queue);
+
+
+/** @ingroup planner
+ * @brief pop a job from the bottom of the stack
+ * @details copies the job, and the pointer to the data (data is not copied). Frees the job from the queue (but not it's data as it's used by job)
+ * @param[in] *job job in which you want to copy the bottom job
+ * @param[in] *queue queue in which the job is taken
+ * @return size of the queue after the operation. -1 if queue is (was) empty and the operation is 	aborted
+ */
+int queue_pop(struct job_t *job, struct queue_t *queue);
+
+#else // (DYNAMIC_QUEUE_SIZE == TRUE) || defined(__DOXYGEN__)
+
+int queue_push(struct job_t *job, struct queue_t *queue);
+struct job_t * queue_pop_nocopy(struct queue_t *queue);
+int queue_pop(struct job_t *job, struct queue_t *queue);
+
+#endif // (DYNAMIC_QUEUE_SIZE == TRUE) || defined(__DOXYGEN__)
+
+#endif // PLANNER_H__
