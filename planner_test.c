@@ -29,7 +29,8 @@ int main()
 	}
 	
 	job = (struct job_t *) malloc(256);
-	queue_push(&job3, &queue1);
+	r = queue_push(&job3, &queue1);
+	printf("pushed job 3; return %i\r\n", r);
 	queue_pop(job, &queue1);
 	printf("queue has %i items, popped '%s' from address %p\r\n",	 queue1.size ,job->data, job);
 	
