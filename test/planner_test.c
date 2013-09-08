@@ -19,6 +19,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "planner.h"
 
 // gcc planner_test.c planner.c -o planner_test -I ./
