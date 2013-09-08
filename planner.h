@@ -52,22 +52,14 @@
 
 
 /**
- * @brief holds the job informations
- */
-struct job_header_t
-{
-	struct job_t *next;
-	unsigned char size;
-	char type;
-};
-
-/**
  * @brief job element
- * holds a header and the data of the job
+ * holds the data (and its size) of the job
  */
 struct job_t
 {
-	struct job_header_t header;
+	struct job_t *next;				//!< Next job in the cained list
+	unsigned char size;				//!< Size in bytes of the data
+	char type;						//!< type of job
 #if defined(DYNAMIC_QUEUE_SIZE)
 	char *data;
 #else

@@ -11,9 +11,9 @@ int main()
 	queue_init(&queue1);
 	
 	char str1[] = "string1", str2[] = "string2", str3[] = "string3";
-	struct job_t job1 = { .header = {.next = NULL, .size=8, .type=1}, .data = str1};
-	struct job_t job2 = { .header = {.next = NULL, .size=8, .type=2}, .data = str2};
-	struct job_t job3 = { .header = {.next = NULL, .size=8, .type=3}, .data = str3};
+	struct job_t job1 = { .next = NULL, .size=8, .type=1, .data = str1};
+	struct job_t job2 = { .next = NULL, .size=8, .type=2, .data = str2};
+	struct job_t job3 = { .next = NULL, .size=8, .type=3, .data = str3};
 	
 	int r = queue_push(&job1, &queue1);
 	printf("pushed job 1; return %i\r\n", r);
